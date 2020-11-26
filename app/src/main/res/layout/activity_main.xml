@@ -8,8 +8,9 @@
     tools:context=".MainActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -62,15 +63,15 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height='wrap_content'
-            android:layout_marginBottom="15dp"
             android:layout_marginTop="10dp"
+            android:layout_marginBottom="15dp"
             android:orientation="horizontal">
 
             <CheckBox
                 android:id="@+id/checkBox_Type1"
-                android:layout_marginEnd="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="5dp"
                 android:text="Rekkehus" />
 
             <CheckBox
@@ -84,16 +85,16 @@
                 android:id="@+id/checkBox_Type3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginEnd="5dp"
+                android:layout_weight="1"
                 android:text="Hybel" />
 
             <CheckBox
                 android:id="@+id/checkBox_Type4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
                 android:layout_marginEnd="5dp"
+                android:layout_weight="1"
                 android:text="Enebolig" />
 
             <CheckBox
@@ -107,22 +108,46 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="400dp">
 
         </androidx.recyclerview.widget.RecyclerView>
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginStart="250dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab_Delete"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@string/ADD"
+                android:src="@android:drawable/ic_menu_add"
+                app:backgroundTint="@color/purple1"
+                app:fabSize="normal"
+                />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/fab"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end|bottom"
+                android:layout_margin="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="550dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="808dp"
+                android:contentDescription="@string/ADD"
+                android:src="@android:drawable/ic_menu_add"
+                app:backgroundTint="@color/purple1" />
+        </LinearLayout>
+
     </LinearLayout>
 
-
-    <!--bottom nav-->
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/nav_view"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@color/purple1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:menu="@menu/bottom_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boligsok.MyAdapter.MyViewHolder
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -36,8 +37,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        //NAVBAR
-        setupNavigation()
 
         //Display boliger med recyclerview
         displayBoliger(boligListe)
@@ -107,11 +106,19 @@ class MainActivity : AppCompatActivity() {
         }
 
         //NYE BOLIGER
-    //    .setOnClickListener {
+    //    fab.setOnClickListener {
       //      // Handler code here.
         //    val intent = Intent(this, Activity2_AddBoliger::class.java)
           //  startActivity(intent);
         //}
+
+        //Floating action button
+        val mFab = findViewById<FloatingActionButton>(R.id.fab)
+        mFab.setOnClickListener {
+            Toast.makeText(this@MainActivity, "Registrer ny bolig", Toast.LENGTH_LONG).show()
+            val intent = Intent(this, Activity2_AddBoliger::class.java)
+            startActivity(intent);
+        }
 
     }
 
@@ -166,30 +173,14 @@ class MainActivity : AppCompatActivity() {
     fun prisHoyLav(){}
 
 
-    fun nyBolig(){}
+    fun nyBolig(){
+
+    }
     fun slettBolig(){}
 
 
     //Andre features
     //Cardviews, fancy
 
-    //MENU BAR
-    private fun setupNavigation() {
-        val navView: BottomNavigationView = findViewById(R.id.nav_view)
-        navView.setOnNavigationItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.leggBoliger -> {
-                    Toast.makeText(this, "Add Bolig selected", Toast.LENGTH_SHORT).show()
-                    true
-
-                }
-                R.id.slettBoliger -> {
-                    Toast.makeText(this, "Delete Bolig selected", Toast.LENGTH_SHORT).show()
-                    true
-                }
-                else -> true
-            }
-        }
-    }
 
 }
