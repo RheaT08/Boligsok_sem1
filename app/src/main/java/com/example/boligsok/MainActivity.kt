@@ -5,10 +5,12 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.boligsok.MyAdapter.MyViewHolder
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -33,6 +35,9 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        //NAVBAR
+        setupNavigation()
 
         //Display boliger med recyclerview
         displayBoliger(boligListe)
@@ -167,5 +172,24 @@ class MainActivity : AppCompatActivity() {
 
     //Andre features
     //Cardviews, fancy
+
+    //MENU BAR
+    private fun setupNavigation() {
+        val navView: BottomNavigationView = findViewById(R.id.nav_view)
+        navView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.leggBoliger -> {
+                    Toast.makeText(this, "Add Bolig selected", Toast.LENGTH_SHORT).show()
+                    true
+
+                }
+                R.id.slettBoliger -> {
+                    Toast.makeText(this, "Delete Bolig selected", Toast.LENGTH_SHORT).show()
+                    true
+                }
+                else -> true
+            }
+        }
+    }
 
 }
