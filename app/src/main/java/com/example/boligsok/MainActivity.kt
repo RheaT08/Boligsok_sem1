@@ -14,6 +14,10 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 
+//TASKS
+//Koble metoder fra 2 mainactivities, slik at etter registrert fra acitivity2. blir displayBoliger også oppdatert på activity1
+
+
 class MainActivity : AppCompatActivity() {
 
     //Adapter, and greier for display av info om boligene. Håndtering av RecyclerView layouten
@@ -22,14 +26,17 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewManager: RecyclerView.LayoutManager
 
 
-    //5 pre-definerte boliger i en mutable list.
-    val boligListe : MutableList<Bolig> = mutableListOf(
-        Bolig("Leilighet", "Ottoveien 68, 0863 Oslo", 4500000.00, 56, 2),
-        Bolig("Enebolig", "Ottoveien 34A, 3456 Furuset", 6000000.00, 125, 5),
-        Bolig("Leilighet", "Kjøleveien 23B, 3245 Gamle Oslo", 3440000.00, 42, 2),
-        Bolig("Rekkehus", "Roseveien 6A, 9857 Trondheim Øst", 48200000.00, 34, 2),
-        Bolig("Hybel", "Ottoveien 12, 1345 Sandvika", 3200000.00, 35, 1)
-    )
+    companion object{
+        //5 pre-definerte boliger i en mutable list.
+        val boligListe : MutableList<Bolig> = mutableListOf(
+            Bolig("Leilighet", "Ottoveien 68, 0863 Oslo", 4500000.00, 56, 2),
+            Bolig("Enebolig", "Ottoveien 34A, 3456 Furuset", 6000000.00, 125, 5),
+            Bolig("Leilighet", "Kjøleveien 23B, 3245 Gamle Oslo", 3440000.00, 42, 2),
+            Bolig("Rekkehus", "Roseveien 6A, 9857 Trondheim Øst", 48200000.00, 34, 2),
+            Bolig("Hybel", "Ottoveien 12, 1345 Sandvika", 3200000.00, 35, 1)
+        )
+
+    }
 
 
     //Main-Activity page
@@ -47,29 +54,7 @@ class MainActivity : AppCompatActivity() {
             searchBoliger()
         }
 
-    }//onCREATE
 
-
-    //Displayer de 5 predefinerte bolig-objektene in en cardview på forsiden.
-    fun displayBoliger(list: MutableList<Bolig>){
-
-        viewManager = LinearLayoutManager(this)
-        viewAdapter = MyAdapter(list)  //oppretter en objekt av MyAdapter klassen min. Parameter en mutablelist.
-
-
-        recyclerView = recyclerView1.apply {
-            // use this setting to improve performance if you know that changes
-            // in content do not change the layout size of the RecyclerView
-            setHasFixedSize(true)
-
-            // use a linear layout manager
-            layoutManager = viewManager
-
-            // specify an viewAdapter (see also next example)
-            //adapter = viewAdapter
-            recyclerView1.adapter = viewAdapter
-
-        }
 
         //FILTERS - filter fungerer kun en boks om gangen, selvom du krysser flere bokser. Nyeste boks krysset vil gjelde
         //rekkehus
@@ -105,22 +90,48 @@ class MainActivity : AppCompatActivity() {
             displayBoliger(boligListe)
         }
 
-        //NYE BOLIGER
-    //    fab.setOnClickListener {
-      //      // Handler code here.
-        //    val intent = Intent(this, Activity2_AddBoliger::class.java)
-          //  startActivity(intent);
-        //}
-
-        //Floating action button
+        //NYE BOLIGER - Floating action button
         val mFab = findViewById<FloatingActionButton>(R.id.fab)
         mFab.setOnClickListener {
-            Toast.makeText(this@MainActivity, "Registrer ny bolig", Toast.LENGTH_LONG).show()
             val intent = Intent(this, Activity2_AddBoliger::class.java)
             startActivity(intent);
         }
 
+
+
+    }//onCREATE
+
+    //ONRESUME - til activity 2, vil act1 stoppe. Ved å gå tilbake til act1, onResume() vil starte.
+    override fun onResume() {
+        super.onResume()
+            // fetch updated data
+            displayBoliger(boligListe)
     }
+
+
+    //Displayer de 5 predefinerte bolig-objektene in en cardview på forsiden.
+    fun displayBoliger(list: MutableList<Bolig>){
+
+        viewManager = LinearLayoutManager(this)
+        viewAdapter = MyAdapter(list)  //oppretter en objekt av MyAdapter klassen min. Parameter en mutablelist.
+
+
+        recyclerView = recyclerView1.apply {
+            // use this setting to improve performance if you know that changes
+            // in content do not change the layout size of the RecyclerView
+            setHasFixedSize(true)
+
+            // use a linear layout manager
+            layoutManager = viewManager
+
+            // specify an viewAdapter (see also next example)
+            //adapter = viewAdapter
+            recyclerView1.adapter = viewAdapter
+        }
+    }
+
+
+
 
 
     fun searchBoliger(){
@@ -159,7 +170,6 @@ class MainActivity : AppCompatActivity() {
 
         var updateBoliger : MutableList<Bolig> = mutableListOf()
 
-        //Rekkehus
             for(bolig in boligListe){
                 if(bolig.boligType.toLowerCase() == type){
                     updateBoliger.add(bolig)
@@ -172,10 +182,10 @@ class MainActivity : AppCompatActivity() {
     fun prisLavHoy(){}
     fun prisHoyLav(){}
 
-
-    fun nyBolig(){
-
+    fun nyBolig(nyBoligObjekt : Bolig){
+        boligListe.add(nyBoligObjekt)
     }
+
     fun slettBolig(){}
 
 

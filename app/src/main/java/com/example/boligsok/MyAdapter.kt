@@ -1,5 +1,6 @@
 package com.example.boligsok
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -26,17 +27,18 @@ class MyAdapter(private val boligData: MutableList<Bolig>) : RecyclerView.Adapte
 
 
     //Hva som skal vises på recyclerViewet
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: MyAdapter.MyViewHolder, position: Int) {
 
         val boligTextView = holder.boligerListItem.findViewById<TextView>(R.id.bolig_textView)   //findViewbyId finner spesifikk view innenfor en layout,
         boligTextView.text = "Type: " +
-            boligData[position].boligType                                                      //hente ut fra recyclerview_boliger_card, de spesifikke viewobjektene du ønsker.
+            boligData[position].boligType                                                     //hente ut fra recyclerview_boliger_card, de spesifikke viewobjektene du ønsker.
 
-        val addresseText = holder.boligerListItem.findViewById<TextView>(R.id.adresse_textview)
-        addresseText.text = "Pris: " + boligData[position].pris + " kr"
+        val adresseText = holder.boligerListItem.findViewById<TextView>(R.id.adresse_textview)
+        adresseText.text = "Adresse: " + boligData[position].adresse
 
         val prisText = holder.boligerListItem.findViewById<TextView>(R.id.pris_textview)
-        prisText.text = "Adresse: " + boligData[position].adresse.toString()
+        prisText.text = "Pris: " + boligData[position].pris + " kr"
 
         val storrelseText = holder.boligerListItem.findViewById<TextView>(R.id.storrelse_textview)
         storrelseText.text = "Størrelse: " + boligData[position].storrelse.toString()
@@ -49,4 +51,10 @@ class MyAdapter(private val boligData: MutableList<Bolig>) : RecyclerView.Adapte
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = boligData.size
+
+    //Updates the list
+    fun updateList(boligData:List<Bolig>) {
+        this.boligData.clear();
+        this.boligData.addAll(boligData)
+    }
 }
