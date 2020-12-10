@@ -15,7 +15,7 @@ class Activity2_AddBoliger : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         //tilbake til home knapp
-        findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+        findViewById<FloatingActionButton>(R.id.fab_add).setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
@@ -33,7 +33,6 @@ class Activity2_AddBoliger : AppCompatActivity() {
             Toast.makeText(this, "Bolig er registrert!", Toast.LENGTH_SHORT).show()
 
         }
-
     }
 
 

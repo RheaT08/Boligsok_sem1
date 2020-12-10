@@ -41,7 +41,7 @@ class MyAdapter(private val boligData: MutableList<Bolig>) : RecyclerView.Adapte
         prisText.text = "Pris: " + boligData[position].pris + " kr"
 
         val storrelseText = holder.boligerListItem.findViewById<TextView>(R.id.storrelse_textview)
-        storrelseText.text = "Størrelse: " + boligData[position].storrelse.toString()
+        storrelseText.text = "Størrelse: " + boligData[position].storrelse.toString() + "m^2"
 
         val romText = holder.boligerListItem.findViewById<TextView>(R.id.rom_textview)
         romText.text = "Antall rom: " + boligData[position].soverom.toString()
@@ -52,9 +52,4 @@ class MyAdapter(private val boligData: MutableList<Bolig>) : RecyclerView.Adapte
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = boligData.size
 
-    //Updates the list
-    fun updateList(boligData:List<Bolig>) {
-        this.boligData.clear();
-        this.boligData.addAll(boligData)
-    }
 }

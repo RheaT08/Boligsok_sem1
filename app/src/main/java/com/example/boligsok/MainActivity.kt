@@ -2,21 +2,17 @@ package com.example.boligsok
 
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.SearchView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.boligsok.MyAdapter.MyViewHolder
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_main.*
 
 //TASKS
-//Koble metoder fra 2 mainactivities, slik at etter registrert fra acitivity2. blir displayBoliger også oppdatert på activity1
-
+//  Sette i fragments?
+//  Gjøre UI pent
+//  Sette filter på pris
+//  Skriv refleksjonsgreia
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,7 +39,6 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
 
         //Display boliger med recyclerview
         displayBoliger(boligListe)
@@ -90,12 +85,24 @@ class MainActivity : AppCompatActivity() {
             displayBoliger(boligListe)
         }
 
+
+
         //NYE BOLIGER - Floating action button
-        val mFab = findViewById<FloatingActionButton>(R.id.fab)
-        mFab.setOnClickListener {
+        val addFab = findViewById<FloatingActionButton>(R.id.fab_add)
+        addFab.setOnClickListener {
             val intent = Intent(this, Activity2_AddBoliger::class.java)
             startActivity(intent);
         }
+
+
+        //SLETTE BOLIGER
+        slett_btn.setOnClickListener {
+            val slettBolig = slettInput.text.toString()
+            slettBolig(slettBolig)
+
+        }
+
+
 
 
 
@@ -132,8 +139,6 @@ class MainActivity : AppCompatActivity() {
 
 
 
-
-
     fun searchBoliger(){
 
         var userInput = searchInput.text
@@ -166,7 +171,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun filterTypeBoliger(type : String){
+    fun filterTypeBoliger(type: String){
 
         var updateBoliger : MutableList<Bolig> = mutableListOf()
 
@@ -182,11 +187,15 @@ class MainActivity : AppCompatActivity() {
     fun prisLavHoy(){}
     fun prisHoyLav(){}
 
-    fun nyBolig(nyBoligObjekt : Bolig){
-        boligListe.add(nyBoligObjekt)
-    }
+    fun slettBolig(boligAddressen: String){
 
-    fun slettBolig(){}
+        boligListe.forEach{
+            if(it.adresse == boligAddressen){
+                boligListe.remove(it)
+                viewAdapter.notifyDataSetChanged()
+            }
+        }
+    }
 
 
     //Andre features
